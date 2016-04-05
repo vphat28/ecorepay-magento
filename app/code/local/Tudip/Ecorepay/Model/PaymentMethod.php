@@ -65,6 +65,7 @@ class Tudip_Ecorepay_Model_PaymentMethod extends Mage_Payment_Model_Method_Cc
      *
      */
       public function authorize(Varien_Object $payment, $amount){
+         
     		$order = $payment->getOrder();
 		try {
     			$billingaddress = $order->getBillingAddress();
@@ -104,15 +105,15 @@ class Tudip_Ecorepay_Model_PaymentMethod extends Mage_Payment_Model_Method_Cc
                                 'CardExpYear'=> $payment->getCcExpYear(),
                                 'CardCVV'=> $payment->getCcCid()
 			);
-			$accountId = 'Enter Your Account Id or API User Key';
-			$accountAuth = 'Enter Your Account Auth or API Password Key';
+			$accountId = $this->getConfigData('login');
+			$accountAuth = $this->getConfigData('trans_key');
 			$fields_string="<?xml version=\"1.0\" encoding=\"UTF-8\"?><Request type=\"AuthorizeCapture\"><AccountID>".$accountId."</AccountID><AccountAuth>".$accountAuth."</AccountAuth><Transaction>";
 			foreach($fields as $key=>$value) {
 				$fields_string .= '<'.$key.'>'.$value.'</'.$key.'>';
 			}
 			$fields_string .= '</Transaction></Request>';
 			//open connection
-			$ch = curl_init('https://gateway.ecorepay.cc/');
+			$ch = curl_init( $this->getConfigData('cgi_url'));
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_POST,1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS,$fields_string);
