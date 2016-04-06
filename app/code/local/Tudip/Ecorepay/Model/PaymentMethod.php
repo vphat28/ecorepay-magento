@@ -73,6 +73,8 @@ class Tudip_Ecorepay_Model_PaymentMethod extends Mage_Payment_Model_Method_Cc
 			$regionModel = Mage::getModel('directory/region')->load($billingaddress->getData('region_id'));
 			$dob = Mage::getModel('customer/customer')->load($order->getCustomerId())->getDob();
 			$devMode = false;
+            
+            
 			$ipAddress = $_SERVER['REMOTE_ADDR'];
 			$dobStr = "";
 			if(!isset($dob)){
@@ -105,8 +107,8 @@ class Tudip_Ecorepay_Model_PaymentMethod extends Mage_Payment_Model_Method_Cc
                                 'CardExpYear'=> $payment->getCcExpYear(),
                                 'CardCVV'=> $payment->getCcCid()
 			);
-			$accountId = $this->getConfigData('login');
-			$accountAuth = $this->getConfigData('trans_key');
+			$accountId = $this->getConfigData('logint');
+			$accountAuth = $this->getConfigData('trans_keyt');
 			$fields_string="<?xml version=\"1.0\" encoding=\"UTF-8\"?><Request type=\"AuthorizeCapture\"><AccountID>".$accountId."</AccountID><AccountAuth>".$accountAuth."</AccountAuth><Transaction>";
 			foreach($fields as $key=>$value) {
 				$fields_string .= '<'.$key.'>'.$value.'</'.$key.'>';
@@ -114,6 +116,8 @@ class Tudip_Ecorepay_Model_PaymentMethod extends Mage_Payment_Model_Method_Cc
 			$fields_string .= '</Transaction></Request>';
 			//open connection
 			$ch = curl_init( $this->getConfigData('cgi_url'));
+            
+          
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_POST,1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS,$fields_string);

@@ -57,24 +57,25 @@
 			    <show_in_website>1</show_in_website>
 			    <show_in_store>0</show_in_store>
 			</test>
-             <login translate="label">
+             <logint translate="label">
                             <label>API Login ID</label>
-                            <frontend_type>obscure</frontend_type>
-                      
+                            <frontend_type>text</frontend_type>
+                   
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </login>
+                        </logint>
                         
-                            <trans_key translate="label">
+                            <trans_keyt translate="label">
                             <label>Transaction Key</label>
-                            <frontend_type>obscure</frontend_type> 
+                            <frontend_type>text</frontend_type> 
+                          
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </trans_key>
+                        </trans_keyt>
                         
                         
 			<cgi_url translate="label">
