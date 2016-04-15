@@ -153,6 +153,8 @@ class Tudip_Ecorepay_Model_PaymentMethod extends Mage_Payment_Model_Method_Cc
         $payment->setLastTransId($orderId);
         
         if ($isPaymentAccepted) {
+            $payment->setTransactionId($xmlResponse->TransactionID[0]);//Add trans id
+            $payment->setStatus(self::STATUS_APPROVED);
             $payment->setStatus(self::STATUS_APPROVED);
         } else {
             $payment->setStatus(self::STATUS_ERROR);
